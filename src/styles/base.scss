@@ -1,0 +1,260 @@
+@import './variables.scss';
+
+/* reset */
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+fieldset,
+img {
+  border: 0;
+}
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var {
+  font-style: normal;
+  font-weight: normal;
+}
+ol,
+ul {
+  list-style: none;
+}
+caption,
+th {
+  text-align: left;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+q:before,
+q:after {
+  content: '';
+}
+abbr,
+acronym {
+  border: 0;
+}
+* {
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: $black;
+}
+li {
+  list-style: none;
+}
+input,
+img {
+  border: none;
+}
+img {
+  object-fit: cover;
+}
+html {
+  height: 100%;
+  body {
+    font: normal normal normal 0.14rem PingFang SC, Hiragino Sans GB, Microsoft YaHei UI, Microsoft YaHei;
+    line-height: 0.14rem;
+    color: $black;
+    height: 100%;
+  }
+}
+
+/* common */
+.main-layout {
+  height: 100%;
+  background-color: $white;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+// 字体配置列表
+$fontSizeList: (text-xxxl, $text-xxxl), (text-xxl $text-xxl), (text-xl $text-xl), (title-lg $title-lg),
+  (title-md $title-md), (title-sm $title-sm), (text-lg $text-lg), (text-md $text-md), (text-sm $text-sm),
+  (text-xs $text-xs);
+// 中文字体类
+@each $className, $size in $fontSizeList {
+  .#{$className} {
+    font-family: PingFangSC-Regular;
+    font-size: $size;
+  }
+}
+@each $className, $size in $fontSizeList {
+  .#{$className}-s {
+    font-family: PingFangSC-Semibold;
+    font-weight: 600;
+    font-size: $size;
+  }
+}
+@each $className, $size in $fontSizeList {
+  .#{$className}-m {
+    font-family: PingFangSC-Medium;
+    font-weight: 500;
+    font-size: $size;
+  }
+}
+
+.main-content {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  // 覆盖antd的默认样式
+}
+
+.length-restrict {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.length-restrict-2-line {
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.divider-box {
+  width: 100%;
+  height: 0.08rem;
+  background-color: $bg-grey;
+}
+
+/* 底部固定带padding的button */
+.bottom-button {
+  padding: 0.05rem 0.15rem 0.08rem;
+  img {
+    width: 0.18rem;
+    margin-right: 0.1rem;
+  }
+  .button_inactive {
+    background-color: $border-grey;
+    color: $white;
+  }
+}
+
+/*  布局用flex  */
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.row-center {
+  @extend .row;
+  align-items: center;
+}
+
+.row-center-around {
+  @extend .row-center;
+  justify-content: space-around;
+}
+
+.row-center-between {
+  @extend .row-center;
+  justify-content: space-between;
+}
+
+.row-center-center {
+  @extend .row-center;
+  justify-content: center;
+}
+
+.row-end-between {
+  @extend .row;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.col-center {
+  @extend .col;
+  align-items: center;
+}
+
+.col-center-around {
+  @extend .col-center;
+  justify-content: space-around;
+}
+
+.col-center-between {
+  @extend .col-center;
+  justify-content: space-between;
+}
+
+.col-center-center {
+  @extend .col-center;
+  justify-content: center;
+}
+
+// 输入框后的清楚按钮
+.input-clear-image {
+  width: 0.16rem;
+}
+
+.no-more {
+  color: #cccccc;
+  text-align: center;
+}
+
+.tag {
+  @extend .row-center-center;
+  width: 0.32rem;
+  height: 0.16rem;
+  border-radius: 8px;
+  background: $red;
+  font-size: 0.1rem;
+  color: $white;
+}
+
+@import './animate.scss';
