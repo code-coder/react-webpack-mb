@@ -1,6 +1,6 @@
 import 'whatwg-fetch';
 import 'es6-promise';
-import Toast from '../middlewares/toast';
+import Toast from '../utils/toast';
 
 // 请求超时时间设置
 const REQUEST_TIEM_OUT = 10 * 1000;
@@ -60,7 +60,7 @@ class ProxyFetch {
    * get请求
    * @param {String} url
    * @param {Object} params
-   * @param {Object} settings: { noLoading }
+   * @param {Object} settings: { noLoading : Boolean, noRedirect : Boolean }
    */
   async get(url, params = {}, settings = {}) {
     const options = { method: 'GET' };
@@ -88,7 +88,7 @@ class ProxyFetch {
    * post请求
    * @param {String} url
    * @param {Object} params
-   * @param {Object} settings: { noLoading }
+   * @param {Object} settings: { noLoading : Boolean, noRedirect : Boolean }
    */
   async post(url, params = {}, settings = {}) {
     const options = { method: 'POST' };
@@ -100,7 +100,7 @@ class ProxyFetch {
    * put请求
    * @param {String} url
    * @param {Object} params
-   * @param {Object} settings: { noLoading }
+   * @param {Object} settings: { noLoading : Boolean, noRedirect : Boolean }
    */
   async put(url, params = {}, settings = {}) {
     const options = { method: 'PUT' };
@@ -112,7 +112,7 @@ class ProxyFetch {
    * put请求
    * @param {String} url
    * @param {Object} params
-   * @param {Object} settings: { noLoading }
+   * @param {Object} settings: { noLoading : Boolean, noRedirect : Boolean }
    */
   async delete(url, params = {}, settings = {}) {
     const options = { method: 'DELETE' };
@@ -124,15 +124,14 @@ class ProxyFetch {
    * fetch主函数
    * @param {*} url
    * @param {*} options
-   * @param {Object} settings: { noLoading }
+   * @param {Object} settings: { noLoading : Boolean, noRedirect : Boolean }
    */
   dofetch(url, options, settings = {}) {
-    const { noLoading } = settings;
-
+    const { noLoading, noRedirect } = settings;
     !noLoading && this.showLoading();
 
     return Promise.race([
-      fetch(url, { headers: this.headers, ...this.init, ...options }),
+      fetch(BASE_API_URL + url, { headers: this.headers, ...this.init, ...options }),
       new Promise((resolve, reject) => {
         setTimeout(() => reject(new Error('request timeout')), REQUEST_TIEM_OUT);
       })
@@ -144,7 +143,7 @@ class ProxyFetch {
         } else if (response.status === 404) {
           throw new Error('请求地址未找到');
         } else if (response.status === 401) {
-          window.location.href = '/login?directBack=true';
+          !noRedirect && (window.location.href = '/login?directBack=true');
           throw new Error('请先登录');
         } else if (response.status === 400) {
           throw new Error('请求参数错误');

@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename={BASE_PREFIX}>
           <Switch>
             <Route exact path="/" component={HomeRoute} />
           </Switch>

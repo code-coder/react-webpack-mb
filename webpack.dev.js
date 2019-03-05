@@ -13,7 +13,9 @@ module.exports = merge(common, {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
+      'process.env.NODE_ENV': JSON.stringify('development'),
+      BASE_PREFIX: JSON.stringify('/'),
+      BASE_API_URL: SON.stringify('0.0.0.0:80')
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()

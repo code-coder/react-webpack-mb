@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setGlobalData } from '../../store/actions/global/global-data';
-import Toast from '../../middlewares/toast';
+import Toast from '../../utils/toast';
 import logo from '../../assets/logo.svg';
 
 class Home extends Component {

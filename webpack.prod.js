@@ -7,7 +7,9 @@ const common = require('./webpack.common');
 module.exports = merge(common, {
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      BASE_PREFIX: JSON.stringify('/'),
+      BASE_API_URL: JSON.stringify('0.0.0.0:80')
     })
   ],
   optimization: {
