@@ -13,7 +13,7 @@ class Home extends Component {
     return (
       <div className="home">
         <img src={logo} />
-        home
+        <span>首页</span>
       </div>
     );
   }

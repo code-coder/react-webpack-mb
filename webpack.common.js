@@ -2,55 +2,68 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const theme = require('./package.json').theme;
+const fs = require('fs-extra');
+
+const publicPath = '';
+const buildFolder = 'dist';
+
+fs.copySync('public', buildFolder, {
+  dereference: true,
+  filter: file => file !== 'public/index.html',
+});
 
 module.exports = {
   entry: {
-    index: './src/index.js'
+    index: './src/index.js',
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
-    filename: '[name].[hash].js',
-    chunkFilename: '[name].[hash].chunk.js'
+    path: path.resolve(__dirname, buildFolder),
+    publicPath: publicPath,
+    filename: 'js/[name].[chunkhash:8].js',
+    chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
   },
   module: {
     rules: [
       {
         test: /\.(scss|css)$/,
+        sideEffects: true,
         use: [
           MiniCssExtractPlugin.loader,
           { loader: 'css-loader', options: { importLoaders: 1 } },
           'postcss-loader',
-          'sass-loader'
-        ]
+          'sass-loader',
+        ],
       },
       {
         test: /\.(less)$/,
+        sideEffects: true,
         use: [
           MiniCssExtractPlugin.loader,
           { loader: 'css-loader', options: { importLoaders: 1 } },
-          'postcss-loader',
-          'less-loader'
-        ]
+          { loader: 'less-loader', options: { modifyVars: theme } },
+        ],
+        include: /node_modules/,
       },
       {
         test: /\.(eot|woff|svg|ttf|woff2|appcache|mp3|mp4|pdf)(\?|$)/,
         include: path.resolve(__dirname, 'src'),
-        use: ['file-loader?name=assets/[name].[ext]']
+        use: ['file-loader?name=assets/[name].[hash:8].[ext]'],
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|jpeg)$/,
         include: path.resolve(__dirname, 'src'),
-        use: ['url-loader?limit=8192&name=assets/[name].[ext]']
+        use: ['url-loader?limit=8192&name=assets/[name].[hash:8].[ext]'],
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts)$/,
         use: {
-          loader: 'babel-loader'
+          loader: 'babel-loader',
         },
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   optimization: {
     splitChunks: {
@@ -66,26 +79,28 @@ module.exports = {
           test: /\.css$/,
           chunks: 'all',
           reuseExistingChunk: true,
-          enforce: true
-        }
-      }
-    }
+          enforce: true,
+        },
+      },
+    },
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsc']
+    extensions: ['.js', '.jsx', '.ts', '.tsc'],
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'webpack-react-template',
-      template: './public/index.html',
-      inject: 'body',
-      chunks: ['index', 'styles']
+      template: 'public/index.html',
+      chunks: ['index', 'styles'],
     }),
     new MiniCssExtractPlugin({
-      // JS中的CSS -> 单独的文件中
-      filename: '[id].[contenthash:12].css',
-      chunkFilename: '[id].[contenthash:12].css'
-    })
-  ]
+      filename: 'css/[name].[contenthash:8].css',
+      chunkFilename: 'css/[name].[contenthash:8].chunk.css',
+    }),
+    new ManifestPlugin({
+      fileName: 'asset-manifest.json',
+      publicPath: publicPath,
+    }),
+  ],
 };

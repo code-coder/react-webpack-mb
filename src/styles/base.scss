@@ -100,6 +100,7 @@ html {
     line-height: 0.14rem;
     color: $black;
     height: 100%;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
@@ -113,9 +114,8 @@ html {
 }
 
 // 字体配置列表
-$fontSizeList: (text-xxxl, $text-xxxl), (text-xxl $text-xxl), (text-xl $text-xl), (title-lg $title-lg),
-  (title-md $title-md), (title-sm $title-sm), (text-lg $text-lg), (text-md $text-md), (text-sm $text-sm),
-  (text-xs $text-xs);
+$fontSizeList: (text-xxxl, $text-xxxl), (text-xxl $text-xxl), (text-xl $text-xl), (text-lg $text-lg), (text-md $text-md),
+  (text-sm $text-sm), (text-xs $text-xs);
 // 中文字体类
 @each $className, $size in $fontSizeList {
   .#{$className} {

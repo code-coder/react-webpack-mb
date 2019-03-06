@@ -5,12 +5,13 @@ const merge = require('webpack-merge');
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
+  devtool: 'source-map',
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
       BASE_PREFIX: JSON.stringify('/'),
-      BASE_API_URL: JSON.stringify('0.0.0.0:80')
-    })
+      BASE_API_URL: JSON.stringify('0.0.0.0:80'),
+    }),
   ],
   optimization: {
     minimizer: [
@@ -19,14 +20,14 @@ module.exports = merge(common, {
         parallel: true,
         sourceMap: true,
         uglifyOptions: {
-          warnings: false
-        }
+          warnings: false,
+        },
       }),
-      new OptimizeCSSAssetsPlugin({})
-    ]
+      new OptimizeCSSAssetsPlugin({}),
+    ],
   },
   performance: {
-    hints: false
+    hints: false,
   },
-  mode: 'production'
+  mode: 'production',
 });

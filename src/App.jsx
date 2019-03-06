@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { hot } from 'react-hot-loader/root';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import store from './store';
@@ -18,4 +19,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default hot(App);
