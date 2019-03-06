@@ -10,6 +10,15 @@
         "libraryName": "antd-mobile",
         "style": true
       }
+    ],
+    [
+      "import",
+      {
+        "libraryName": "lodash",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "lodash"
     ]
   ]
 }
