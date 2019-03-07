@@ -9,10 +9,13 @@ const fs = require('fs-extra');
 const publicPath = '';
 const buildFolder = 'dist';
 
-fs.copySync('public', buildFolder, {
-  dereference: true,
-  filter: file => file !== 'public/index.html',
-});
+// 在webpack调用了CleanWebpackPlugin后再拷贝文件
+setTimeout(() => {
+  fs.copySync('public', buildFolder, {
+    dereference: true,
+    filter: file => file !== 'public/index.html',
+  });
+}, 500);
 
 module.exports = {
   entry: {
