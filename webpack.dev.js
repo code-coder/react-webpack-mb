@@ -22,7 +22,6 @@ module.exports = merge(common, {
       BASE_API_URL: JSON.stringify('0.0.0.0:80'),
     }),
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
   ],
   mode: 'development',
 });
