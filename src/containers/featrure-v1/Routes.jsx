@@ -1,20 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Home from "./Home";
+import Index from './Index';
 
-class HomeRoute extends Component {
+class FeatureV1 extends Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
   };
+
   render() {
     const { match } = this.props;
     return (
       <Switch>
-        <Route exact path={`${match.url}`} component={Home} />
+        <Route exact path={`${match.url}`} component={Index} />
       </Switch>
     );
   }
 }
 
-export default HomeRoute;
+export default FeatureV1;

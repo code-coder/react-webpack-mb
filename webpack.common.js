@@ -68,25 +68,6 @@ module.exports = {
       },
     ],
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'async',
-      minSize: 30000,
-      minChunks: 1,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
-      name: false,
-      cacheGroups: {
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          reuseExistingChunk: true,
-          enforce: true,
-        },
-      },
-    },
-  },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsc'],
   },

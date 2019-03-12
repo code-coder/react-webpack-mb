@@ -1,5 +1,4 @@
 import 'whatwg-fetch';
-import 'es6-promise';
 import Toast from '../utils/toast';
 
 // 请求超时时间设置
@@ -134,7 +133,7 @@ class ProxyFetch {
       fetch(BASE_API_URL + url, { headers: this.headers, ...this.init, ...options }),
       new Promise((resolve, reject) => {
         setTimeout(() => reject(new Error('request timeout')), REQUEST_TIEM_OUT);
-      })
+      }),
     ])
       .then(response => {
         this.hideLoading();

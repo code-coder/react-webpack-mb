@@ -9,11 +9,23 @@ module.exports = merge(common, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
-      BASE_PREFIX: JSON.stringify('/'),
+      BASE_PREFIX: JSON.stringify('/react-demo'),
       BASE_API_URL: JSON.stringify('0.0.0.0:80'),
     }),
   ],
   optimization: {
+    splitChunks: {
+      name: false,
+      cacheGroups: {
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          reuseExistingChunk: true,
+          enforce: true,
+        },
+      },
+    },
     minimizer: [
       new UglifyJsPlugin({
         cache: true,
