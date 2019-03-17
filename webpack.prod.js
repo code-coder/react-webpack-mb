@@ -24,6 +24,11 @@ module.exports = merge(common, {
           reuseExistingChunk: true,
           enforce: true,
         },
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendors",
+          chunks: "all"
+        },
       },
     },
     minimizer: [
